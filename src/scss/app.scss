@@ -1,0 +1,55 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html {
+  font-size: 62.5%;
+}
+body {
+  background-color: #282c34;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 1.6rem;
+}
+.App {
+  .container {
+    max-width: 500px;
+    margin: 5rem auto;
+  }
+  .btn {
+    cursor: pointer;
+    margin-top: 1.5rem;
+    border-radius: 0.25rem;
+    border: 1px solid darkgray;
+    outline: none;
+    padding: 0.25rem;
+  }
+  .formArea {
+    background: lightgray;
+    border-radius: 1rem;
+    border: 1px solid gray;
+    padding: 1.5rem;
+    margin-bottom: 0.5rem;
+    label {
+      margin: 0.5rem 0;
+      font-weight: bold;
+    }
+    .formInput {
+      margin: 0;
+      padding: 0 1rem;
+      border: 1px solid gray;
+      width: 100%;
+    }
+  }
+  .issue {
+    background: lightgray;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    margin: 0 auto;
+    margin-bottom: 0.5rem;
+  }
+}
