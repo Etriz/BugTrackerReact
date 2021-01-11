@@ -6,10 +6,10 @@ const IssueForm = ({ list, setList }) => {
   const createItem = (e) => {
     e.preventDefault();
     const getId = list.length + 1;
-    // if (issue.priority === "") {
+    // if (issue.description === "") {
     //   // TODO make an error message
     //   //do nothing
-    // } else if (issue.description === "") {
+    // } else if (issue.priority === "") {
     //   // TODO make an error message
     // } else if (issue.assigned === "") {
     //   // TODO make an error message

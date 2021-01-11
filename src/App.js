@@ -11,11 +11,16 @@ const START_LIST = [
 const App = () => {
   const [list, setList] = useState(START_LIST);
 
+  const deleteItem = (id) => {
+    let newList = list.filter((item) => item.id !== id);
+    setList(newList);
+  };
+
   const List = () => {
     return (
       <div>
         {list.map((item) => (
-          <ListItem item={item} key={item.id} />
+          <ListItem item={item} key={item.id} deleteItem={deleteItem} />
         ))}
       </div>
     );
