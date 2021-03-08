@@ -1,3 +1,5 @@
+@import './mixins.scss';
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -9,8 +11,8 @@ html {
 body {
   background-color: #282c34;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
-    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 1.6rem;
@@ -20,14 +22,6 @@ body {
     max-width: 500px;
     margin: 5rem auto;
   }
-  .btn {
-    cursor: pointer;
-    margin-top: 1.5rem;
-    border-radius: 0.25rem;
-    border: 1px solid darkgray;
-    outline: none;
-    padding: 0.25rem;
-  }
   .formArea {
     background: lightgray;
     border-radius: 1rem;
@@ -35,14 +29,19 @@ body {
     padding: 1.5rem;
     margin-bottom: 0.5rem;
     label {
-      margin: 0.5rem 0;
+      font-size: 2rem;
       font-weight: bold;
     }
     .formInput {
-      margin: 0;
+      font-size: 1.5rem;
+      line-height: 1.75;
+      margin: 0.5rem 0;
       padding: 0 1rem;
       border: 1px solid gray;
       width: 100%;
+    }
+    .btn {
+      @include button(#007bff);
     }
   }
   .issue {
@@ -51,5 +50,8 @@ body {
     border-radius: 1rem;
     margin: 0 auto;
     margin-bottom: 0.5rem;
+    .btn {
+      @include button(#dc3545);
+    }
   }
 }

@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
+import { nanoid } from 'nanoid';
+
+const emptyForm = { description: '', priority: '', assigned: '' };
 
 const IssueForm = ({ list, setList }) => {
-  const [issue, setIssue] = useState({ description: "", priority: "", assigned: "" });
+  const [issue, setIssue] = useState(emptyForm);
 
   const createItem = (e) => {
     e.preventDefault();
-    const getId = list.length + 1;
+    const newId = nanoid(6);
     // if (issue.description === "") {
     //   // TODO make an error message
     //   //do nothing
@@ -14,8 +17,8 @@ const IssueForm = ({ list, setList }) => {
     // } else if (issue.assigned === "") {
     //   // TODO make an error message
     // } else {
-    console.log("submit");
-    setList([...list, { ...issue, id: getId }]);
+    console.log('submit');
+    setList([...list, { ...issue, id: newId }]);
     clearForm();
     // }
   };
@@ -25,8 +28,7 @@ const IssueForm = ({ list, setList }) => {
   };
 
   const clearForm = () => {
-    console.log("clearForm");
-    setIssue({ description: "", priority: "", assigned: "" });
+    setIssue(emptyForm);
   };
 
   return (
@@ -70,7 +72,7 @@ const IssueForm = ({ list, setList }) => {
           onChange={handleChange}
         />
         <button className="btn" type="submit" id="btnAdd">
-          submit
+          Add
         </button>
       </form>
     </div>
