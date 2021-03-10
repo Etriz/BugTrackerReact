@@ -2,11 +2,11 @@
   outline: none;
   cursor: pointer;
   border: none;
+  border-radius: 0.5rem;
   font-size: 1.75rem;
   line-height: 2rem;
   color: white;
   background: $color;
-  border-radius: 0.5rem;
   padding: 0.5rem 1rem;
   margin: 1rem 0;
   &:hover {
