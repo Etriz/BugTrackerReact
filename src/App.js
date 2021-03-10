@@ -6,8 +6,8 @@ import ListItem from './components/ListItem';
 import './scss/app.scss';
 
 const START_LIST = [
-  { id: 0, priority: 'Low', description: 'Sample item 01', assigned: '01' },
-  { id: 1, priority: 'Med', description: 'Sample item 02', assigned: '02' },
+  { id: 0, priority: 'Low', description: 'Sample Item 01', assigned: '01' },
+  { id: 1, priority: 'Med', description: 'Sample Item 02', assigned: '02' },
 ];
 
 const App = () => {
