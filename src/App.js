@@ -1,15 +1,18 @@
-import React, { useState } from "react";
-import IssueForm from "./components/IssueForm";
-import ListItem from "./components/ListItem";
-import "./scss/app.scss";
+import React from 'react';
+import useLocalStorage from './hooks/useLocalStorage';
+
+import IssueForm from './components/IssueForm';
+import ListItem from './components/ListItem';
+import './scss/app.scss';
 
 const START_LIST = [
-  { id: 0, priority: "Low", description: "Test item 01", assigned: "01" },
-  { id: 1, priority: "Med", description: "Test item 02", assigned: "02" },
+  { id: 0, priority: 'Low', description: 'Sample item 01', assigned: '01' },
+  { id: 1, priority: 'Med', description: 'Sample item 02', assigned: '02' },
 ];
 
 const App = () => {
-  const [list, setList] = useState(START_LIST);
+  // const [list, setList] = useState(START_LIST);
+  const [list, setList] = useLocalStorage('TrackerSavedList', START_LIST);
 
   const deleteItem = (id) => {
     let newList = list.filter((item) => item.id !== id);
