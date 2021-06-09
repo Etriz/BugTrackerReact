@@ -1,22 +1,35 @@
-import React, { useState } from 'react';
-import { nanoid } from 'nanoid';
+import React, { useState, useEffect } from 'react';
+import { customAlphabet } from 'nanoid';
 
-const emptyForm = { description: '', priority: '', assigned: '' };
+const emptyForm = { id: null, description: '', priority: '' };
 
-const IssueForm = ({ list, setList }) => {
-  const [issue, setIssue] = useState(emptyForm);
+const IssueForm = ({ list, setList, issue, setIssue, isEditing, setIsEditing }) => {
   const [error, setError] = useState();
+
+  const nanoid = customAlphabet('0123456789ABCDEF', 6);
+
+  useEffect(() => {
+    setIssue(emptyForm);
+  }, [setIssue]);
 
   const createItem = (e) => {
     e.preventDefault();
-    const newId = nanoid(6);
     if (!issue.description) {
       setError('description');
     } else if (!issue.priority) {
       setError('priority');
     } else {
-      setList([...list, { ...issue, id: newId }]);
-      clearForm();
+      if (isEditing) {
+        const newList = list.filter((item) => item.id !== issue.id);
+        // console.log(newList);
+        setList([issue, ...newList]);
+        clearForm();
+        setIsEditing(false);
+      } else {
+        const newId = nanoid();
+        setList([{ ...issue, id: newId }, ...list]);
+        clearForm();
+      }
     }
   };
 
@@ -64,20 +77,8 @@ const IssueForm = ({ list, setList }) => {
             <option value="High">High</option>
           </select>
         </label>
-        <label htmlFor="assignedInput">
-          Assigned To
-          <input
-            type="text"
-            name="assigned"
-            placeholder="Enter assignment"
-            className="formInput"
-            id="assignedInput"
-            value={issue.assigned}
-            onChange={handleChange}
-          />
-        </label>
         <button className="btn" type="submit" id="btnAdd">
-          Add
+          {isEditing ? 'Done' : 'Add'}
         </button>
       </form>
     </div>
