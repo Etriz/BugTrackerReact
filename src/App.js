@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { Route } from 'react-router-dom';
 import useLocalStorage from './hooks/useLocalStorage';
 
+import TopNav from './components/TopNav';
+import Login from './components/Login';
 import IssueForm from './components/IssueForm';
 import ListItem from './components/ListItem';
 import './scss/app.scss';
@@ -59,17 +62,26 @@ const App = () => {
 
   return (
     <div className="App">
-      <div className="container">
-        <IssueForm
-          list={list}
-          setList={setList}
-          issue={issue}
-          setIssue={setIssue}
-          isEditing={isEditing}
-          setIsEditing={setIsEditing}
-        />
-        <List />
-      </div>
+      <TopNav />
+      <Route exact path="/">
+        <div className="container">
+          <IssueForm
+            list={list}
+            setList={setList}
+            issue={issue}
+            setIssue={setIssue}
+            isEditing={isEditing}
+            setIsEditing={setIsEditing}
+          />
+          <List />
+        </div>
+      </Route>
+      <Route path="/login">
+        <Login />
+      </Route>
+      <Route path="/register">
+        <Login />
+      </Route>
     </div>
   );
 };

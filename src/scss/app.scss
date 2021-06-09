@@ -23,16 +23,37 @@ body {
 .App {
   color: #282c34;
   .container {
-    max-width: 500px;
+    max-width: 50rem;
     margin: auto;
-    padding: 5rem 0;
+    padding: 1.5rem 0 1.25rem;
+    // padding: 5rem 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .topNav {
+    font-size: 2rem;
+    background: whitesmoke;
+    a {
+      padding: 1rem;
+      text-decoration: none;
+      color: inherit;
+      height: 100%;
+      // margin: 1rem 0 0;
+      border-radius: 0.5rem 0.5rem 0 0;
+      border-bottom: 3px solid whitesmoke;
+      &:hover {
+        border-bottom: 3px solid #0070ff;
+      }
+    }
   }
   .formArea {
     background: whitesmoke;
     border-radius: 0.5rem;
     border: 0;
     padding: 1.5rem;
-    margin-bottom: 0.5rem;
+    margin: 5rem 0 0.5rem;
     h1 {
       margin-bottom: 1rem;
     }
@@ -64,6 +85,7 @@ body {
   }
 
   .issue {
+    min-width: 50rem;
     background: whitesmoke;
     padding: 1.5rem;
     border-radius: 0.5rem;
