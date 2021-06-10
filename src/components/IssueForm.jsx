@@ -24,11 +24,13 @@ const IssueForm = ({ list, setList, issue, setIssue, isEditing, setIsEditing }) 
         // console.log(newList);
         setList([issue, ...newList]);
         clearForm();
+        clearError();
         setIsEditing(false);
       } else {
         const newId = nanoid();
         setList([{ ...issue, id: newId }, ...list]);
         clearForm();
+        clearError();
       }
     }
   };
@@ -39,6 +41,9 @@ const IssueForm = ({ list, setList, issue, setIssue, isEditing, setIsEditing }) 
 
   const clearForm = () => {
     setIssue(emptyForm);
+  };
+  const clearError = () => {
+    setError();
   };
 
   return (
