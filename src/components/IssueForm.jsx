@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { customAlphabet } from 'nanoid';
 
 const emptyForm = { id: null, description: '', priority: '' };
@@ -28,7 +29,11 @@ const IssueForm = ({ list, setList, issue, setIssue, isEditing, setIsEditing }) 
         setIsEditing(false);
       } else {
         const newId = nanoid();
-        setList([{ ...issue, id: newId }, ...list]);
+        axios.post(`https://rpd-tracker-mongodb.herokuapp.com/api/issue`, {
+          ...issue,
+          issueId: newId,
+        });
+        // setList([{ ...issue, issueId: newId }, ...list]);
         clearForm();
         clearError();
       }
