@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Route } from 'react-router-dom';
+import axios from 'axios';
 import useLocalStorage from './hooks/useLocalStorage';
 
 import TopNav from './components/TopNav';
@@ -11,27 +12,43 @@ import './scss/app.scss';
 const START_LIST = [
   { id: 0, priority: 'Low', description: 'Sample Item 01' },
   { id: 1, priority: 'Medium', description: 'Edit button now works' },
+  { id: 2, priority: 'High', description: 'Connected to live MongoDB' },
 ];
-const NULL_ITEM = { id: 0, priority: 'None', description: 'No issues currently' };
+const NULL_ITEM = { issueId: 0, priority: 'None', description: 'No issues currently' };
 const emptyForm = { id: null, description: '', priority: '' };
 
 const App = () => {
   const [list, setList] = useLocalStorage('TrackerSavedList', START_LIST);
+  const [mongoList, setMongoList] = useState([]);
   const [issue, setIssue] = useState(emptyForm);
   const [isEditing, setIsEditing] = useState(false);
 
   const savedList = window.localStorage.getItem('TrackerSavedList');
 
-  useEffect(() => {
-    if (!savedList) {
-      setList(START_LIST);
-    }
-  }, [setList, savedList]);
-
-  const deleteItem = (id) => {
-    let newList = list.filter((item) => item.id !== id);
-    setList(newList);
+  const asyncFetch = async () => {
+    try {
+      const res = await axios.get(`https://rpd-tracker-mongodb.herokuapp.com/api/issues`);
+      if (res) {
+        setMongoList(res.data.data);
+      } else setMongoList(NULL_ITEM);
+    } catch (e) {}
   };
+
+  useEffect(() => {
+    asyncFetch();
+    // if (!savedList) {
+    //   setList(START_LIST);
+    // }
+  }, []);
+
+  const deleteItem = async (id) => {
+    await axios.delete(`https://rpd-tracker-mongodb.herokuapp.com/api/issue/${id}`);
+    asyncFetch();
+    // if (del) window.location.reload();
+    // let newList = list.filter((item) => item.id !== id);
+    // setList(newList);
+  };
+
   const editItem = (id) => {
     const list = JSON.parse(savedList);
     const item = list.find((item) => item.id === id);
@@ -43,12 +60,12 @@ const App = () => {
   const List = () => {
     return (
       <div>
-        {list.length > 0 ? (
-          list.map((item, index) => (
+        {mongoList.length > 0 ? (
+          mongoList.map((item, index) => (
             <ListItem
               item={item}
               index={index}
-              key={item.id}
+              key={index}
               deleteItem={deleteItem}
               editItem={editItem}
             />
@@ -72,6 +89,7 @@ const App = () => {
             setIssue={setIssue}
             isEditing={isEditing}
             setIsEditing={setIsEditing}
+            asyncFetch={asyncFetch}
           />
           <List />
         </div>

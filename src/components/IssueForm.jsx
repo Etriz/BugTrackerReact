@@ -4,7 +4,7 @@ import { customAlphabet } from 'nanoid';
 
 const emptyForm = { id: null, description: '', priority: '' };
 
-const IssueForm = ({ list, setList, issue, setIssue, isEditing, setIsEditing }) => {
+const IssueForm = ({ list, setList, issue, setIssue, isEditing, setIsEditing, asyncFetch }) => {
   const [error, setError] = useState();
 
   const nanoid = customAlphabet('0123456789ABCDEF', 6);
@@ -13,7 +13,7 @@ const IssueForm = ({ list, setList, issue, setIssue, isEditing, setIsEditing }) 
     setIssue(emptyForm);
   }, [setIssue]);
 
-  const createItem = (e) => {
+  const createItem = async (e) => {
     e.preventDefault();
     if (!issue.description) {
       setError('description');
@@ -29,10 +29,11 @@ const IssueForm = ({ list, setList, issue, setIssue, isEditing, setIsEditing }) 
         setIsEditing(false);
       } else {
         const newId = nanoid();
-        axios.post(`https://rpd-tracker-mongodb.herokuapp.com/api/issue`, {
+        await axios.post(`https://rpd-tracker-mongodb.herokuapp.com/api/issue`, {
           ...issue,
           issueId: newId,
         });
+        asyncFetch();
         // setList([{ ...issue, issueId: newId }, ...list]);
         clearForm();
         clearError();

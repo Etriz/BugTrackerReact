@@ -6,13 +6,13 @@ const ListItem = ({ item, deleteItem, editItem, index }) => {
       {item.priority !== 'None' ? (
         <>
           <h3>{item.description}</h3>
-          <p>{`Issue ID: ${item.id}`}</p>
+          <p>{`Issue ID: ${item.issueId}`}</p>
           <p> {item.priority} priority</p>
           <div>
-            <button className="btn" onClick={() => deleteItem(item.id)}>
+            <button className="btn" onClick={() => deleteItem(item.issueId)}>
               Delete
             </button>
-            <button className="btn edit" onClick={() => editItem(item.id)}>
+            <button className="btn edit" onClick={() => editItem(item.issueId)}>
               Edit
             </button>
           </div>
