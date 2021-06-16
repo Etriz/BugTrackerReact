@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const IssueSchema = new mongoose.Schema({
-  issueId: { type: Number, required: true },
+  issueId: { type: String, required: true },
   priority: { type: String, required: true },
   description: { type: String, required: true },
 });
