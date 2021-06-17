@@ -10,9 +10,9 @@ import ListItem from './components/ListItem';
 import './scss/app.scss';
 
 const START_LIST = [
-  { id: 0, priority: 'Low', description: 'Sample Item 01' },
-  { id: 1, priority: 'Medium', description: 'Edit button now works' },
-  { id: 2, priority: 'High', description: 'Connected to live MongoDB' },
+  { issueId: 0, priority: 'Low', description: 'Sample Item 01' },
+  { issueId: 1, priority: 'Medium', description: 'Edit button now works' },
+  { issueId: 2, priority: 'High', description: 'Connected to live MongoDB' },
 ];
 const NULL_ITEM = { issueId: 0, priority: 'None', description: 'No issues currently' };
 const emptyForm = { id: null, description: '', priority: '' };
@@ -23,7 +23,7 @@ const App = () => {
   const [issue, setIssue] = useState(emptyForm);
   const [isEditing, setIsEditing] = useState(false);
 
-  const savedList = window.localStorage.getItem('TrackerSavedList');
+  // const savedList = window.localStorage.getItem('TrackerSavedList');
 
   const asyncFetch = async () => {
     try {
@@ -49,10 +49,11 @@ const App = () => {
     // setList(newList);
   };
 
-  const editItem = (id) => {
-    const list = JSON.parse(savedList);
-    const item = list.find((item) => item.id === id);
-    setIssue(item);
+  const editItem = async (id) => {
+    // const list = JSON.parse(savedList);
+    // const item = list.find((item) => item.id === id);
+    const item = await axios.get(`https://rpd-tracker-mongodb.herokuapp.com/api/issue/${id}`);
+    setIssue(item.data.data);
     setIsEditing(true);
     // console.log(`EDIT`, item);
   };

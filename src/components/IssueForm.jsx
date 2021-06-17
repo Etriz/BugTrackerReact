@@ -20,25 +20,27 @@ const IssueForm = ({ list, setList, issue, setIssue, isEditing, setIsEditing, as
     } else if (!issue.priority) {
       setError('priority');
     } else {
-      if (isEditing) {
-        const newList = list.filter((item) => item.id !== issue.id);
-        // console.log(newList);
-        setList([issue, ...newList]);
-        clearForm();
-        clearError();
-        setIsEditing(false);
-      } else {
-        const newId = nanoid();
-        await axios.post(`https://rpd-tracker-mongodb.herokuapp.com/api/issue`, {
-          ...issue,
-          issueId: newId,
-        });
-        asyncFetch();
-        // setList([{ ...issue, issueId: newId }, ...list]);
-        clearForm();
-        clearError();
-      }
+      const newId = nanoid();
+      await axios.post(`https://rpd-tracker-mongodb.herokuapp.com/api/issue`, {
+        ...issue,
+        issueId: newId,
+      });
+      asyncFetch();
+      // setList([{ ...issue, issueId: newId }, ...list]);
+      clearForm();
+      clearError();
     }
+  };
+
+  const saveEditItem = async (e) => {
+    e.preventDefault();
+    await axios
+      .put(`https://rpd-tracker-mongodb.herokuapp.com/api/issue/${issue.issueId}`, issue)
+      .catch((e) => console.error(e));
+    clearForm();
+    clearError();
+    setIsEditing(false);
+    asyncFetch();
   };
 
   const handleChange = (e) => {
@@ -55,7 +57,7 @@ const IssueForm = ({ list, setList, issue, setIssue, isEditing, setIsEditing, as
   return (
     <div className="formArea">
       <h1>Add New Issue</h1>
-      <form onSubmit={createItem}>
+      <form onSubmit={isEditing ? saveEditItem : createItem}>
         <label htmlFor="descriptionInput">
           Description
           <span className="error">
